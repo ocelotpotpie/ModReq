@@ -2,6 +2,8 @@ package nu.nerd.modreq;
 
 import java.util.List;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import nu.nerd.modreq.database.Request;
 import nu.nerd.modreq.database.Request.RequestStatus;
 
@@ -23,7 +25,8 @@ class ModReqListener implements Listener {
             boolean includeElevated = event.getPlayer().hasPermission("modreq.cleardb");
             int open = plugin.reqTable.getTotalRequest(includeElevated, null, RequestStatus.OPEN, RequestStatus.CLAIMED);
             if (open > 0) {
-                event.getPlayer().sendMessage(ChatColor.GREEN + "There are " + open + " open mod requests. Type /check to see them.");
+//                event.getPlayer().sendMessage(ChatColor.GREEN + "There are " + open + " open mod requests. Type /check to see them.");
+                event.getPlayer().sendMessage(Component.text("There are " + open + " open mod requests. Type /check to see them.", NamedTextColor.GREEN));
             }
         }
 
@@ -37,7 +40,7 @@ class ModReqListener implements Listener {
     		} else {
     			message = String.format("%s completed your request", req.getAssignedMod());
     		}
-    		event.getPlayer().sendMessage(ChatColor.GREEN + message);
+    		event.getPlayer().sendMessage(Component.text(message, NamedTextColor.GREEN));
         	req.setCloseSeenByUser(true);
 
         	plugin.reqTable.save(req);
